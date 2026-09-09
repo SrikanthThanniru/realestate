@@ -8,13 +8,14 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        bg: '#f4f1ec',
-        ink: '#1d1c1a',
-        muted: '#6f6a62',
-        line: '#d9d3c8',
-        accent: '#3f5c6b',
-        sky: '#a9c4d8',
-        bloom: '#c65d8a',
+        bg: '#f6f2e8',
+        ink: '#161310',
+        muted: '#726a5c',
+        line: '#ded4bf',
+        accent: '#2a1e12',
+        sky: '#ede4cf',
+        bloom: '#8a3b2e',
+        gold: '#c19a4b',
       },
       fontFamily: {
         serif: ['var(--font-cormorant)', 'Georgia', 'serif'],

@@ -5,8 +5,9 @@ import BrandBadge from './BrandBadge';
 
 const links = [
   { label: 'Home', href: '#hero' },
-  { label: 'Apartments', href: '#apartments' },
-  { label: 'Booking', href: '#contact' },
+  { label: 'Projects', href: '#projects' },
+  { label: 'Locations', href: '#locations' },
+  { label: 'Portfolio', href: '#portfolio' },
   { label: 'Contact', href: '#contact' },
 ];
 
@@ -31,44 +32,46 @@ export default function Header() {
         className={`fixed inset-x-0 top-0 z-[100] flex items-center justify-between px-5 sm:px-8 lg:px-12 transition-all duration-500 ease-smooth ${
           scrolled
             ? 'border-b border-line bg-bg/90 py-3 text-ink backdrop-blur-md'
-            : 'border-b border-transparent py-5 text-white mix-blend-difference'
+            : 'border-b border-transparent py-5'
         }`}
       >
-        <a href="#hero" aria-label="Aurora Residence — home">
-          <BrandBadge dark={scrolled} className="h-11 w-11 sm:h-14 sm:w-14" />
+        <a href="#hero" aria-label="Sri Jagathswapna Realtors — home">
+          <BrandBadge dark className="h-11 w-11 sm:h-14 sm:w-14" />
         </a>
 
-        <nav className="hidden flex-col items-end gap-1 text-right md:flex">
-          <a
-            href="#apartments"
-            className="font-serif text-[0.95rem] italic tracking-wide underline decoration-1 underline-offset-4 hover:opacity-70"
-          >
-            Select an Apartment
-          </a>
-          <a href="#contact" className="text-[0.72rem] uppercase tracking-[0.15em] no-underline hover:opacity-70">
-            Book a Call
-          </a>
-          <a href="#contact" className="text-[0.72rem] uppercase tracking-[0.15em] no-underline hover:opacity-70">
-            Contact
-          </a>
-        </nav>
+        <div className="flex items-center gap-6 text-ink">
+          <nav className="hidden flex-col items-end gap-1 text-right md:flex">
+            <a
+              href="#projects"
+              className="font-serif text-[0.95rem] italic tracking-wide underline decoration-1 underline-offset-4 hover:opacity-70"
+            >
+              View Our Projects
+            </a>
+            <a href="tel:+919885447747" className="text-[0.72rem] uppercase tracking-[0.15em] no-underline hover:opacity-70">
+              Call Us
+            </a>
+            <a href="#contact" className="text-[0.72rem] uppercase tracking-[0.15em] no-underline hover:opacity-70">
+              Contact
+            </a>
+          </nav>
 
-        <button
-          aria-label="Menu"
-          onClick={() => setOpen((v) => !v)}
-          className="flex flex-col gap-[5px] md:hidden"
-        >
-          <span
-            className={`h-px w-6 bg-current transition-transform duration-300 ease-smooth ${
-              open ? 'translate-y-[3px] rotate-45' : ''
-            }`}
-          />
-          <span
-            className={`h-px w-6 bg-current transition-transform duration-300 ease-smooth ${
-              open ? '-translate-y-[3px] -rotate-45' : ''
-            }`}
-          />
-        </button>
+          <button
+            aria-label="Menu"
+            onClick={() => setOpen((v) => !v)}
+            className="flex flex-col gap-[5px] md:hidden"
+          >
+            <span
+              className={`h-px w-6 bg-current transition-transform duration-300 ease-smooth ${
+                open ? 'translate-y-[3px] rotate-45' : ''
+              }`}
+            />
+            <span
+              className={`h-px w-6 bg-current transition-transform duration-300 ease-smooth ${
+                open ? '-translate-y-[3px] -rotate-45' : ''
+              }`}
+            />
+          </button>
+        </div>
       </header>
 
       <div

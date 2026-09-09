@@ -20,11 +20,11 @@ export default function LocationCarousel() {
     <section
       data-rail-section
       data-rail-dark="false"
-      className="bg-bg px-6 py-24 text-center sm:px-12 lg:px-24"
+      className="bg-sky px-6 py-24 text-center sm:px-12 lg:px-24"
     >
       <Reveal>
         <h2 className="font-display text-[clamp(2.2rem,7vw,5.5rem)] font-bold uppercase tracking-tight text-ink">
-          Real-life location
+          Villas &amp; Open Plots
         </h2>
       </Reveal>
 
@@ -64,9 +64,9 @@ export default function LocationCarousel() {
 
       <Reveal delay={0.15} className="mx-auto mt-10 max-w-xl text-muted">
         <p>
-          Nestled between pristine beaches, championship golf courses and exclusive
-          wellness clubs, Aurora Residence offers a rare balance of seclusion and
-          seamless access to the finest of the Mediterranean lifestyle.
+          Find the perfect gated-community villa or open plot to build your dream
+          home — located in prime, well-connected areas across Hyderabad, ideal
+          for residential development and long-term growth.
         </p>
       </Reveal>
 

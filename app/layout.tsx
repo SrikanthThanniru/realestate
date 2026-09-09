@@ -27,9 +27,9 @@ const script = Pinyon_Script({
 });
 
 export const metadata: Metadata = {
-  title: 'Aurora Residence — A place to return to',
+  title: "Sri Jagathswapna Realtors — Building Dreams, Creating Legacies",
   description:
-    'A boutique gated community of twenty-eight homes on the southern coast.',
+    'A decade of real estate excellence in Hyderabad — premium gated-community villas and open plots from Sri Jagathswapna Realtors Pvt. Ltd.',
 };
 
 export default function RootLayout({

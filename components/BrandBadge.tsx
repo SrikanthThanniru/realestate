@@ -1,5 +1,7 @@
 'use client';
 
+import Image from 'next/image';
+
 export default function BrandBadge({
   className,
   dark = false,
@@ -7,8 +9,8 @@ export default function BrandBadge({
   className?: string;
   dark?: boolean;
 }) {
-  const color = dark ? '#1d1c1a' : '#ffffff';
-  const text = 'AURORA RESIDENCE • AURORA RESIDENCE • ';
+  const color = dark ? '#161310' : '#ffffff';
+  const text = 'SRI JAGATHSWAPNA REALTORS • EST. HYDERABAD • ';
 
   return (
     <div className={`relative h-16 w-16 shrink-0 ${className ?? ''}`}>
@@ -26,21 +28,14 @@ export default function BrandBadge({
           </textPath>
         </text>
       </svg>
-      <span
-        className="absolute inset-0 flex items-center justify-center"
-        style={{ color }}
-      >
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-          <path
-            d="M12 2C12 7 16 8 16 12C16 16 12 17 12 22C12 17 8 16 8 12C8 8 12 7 12 2Z"
-            fill="currentColor"
-          />
-          <path
-            d="M2 12C7 12 8 8 12 8C16 8 17 12 22 12C17 12 16 16 12 16C8 16 7 12 2 12Z"
-            fill="currentColor"
-            opacity="0.55"
-          />
-        </svg>
+      <span className="absolute inset-[22%] overflow-hidden rounded-full">
+        <Image
+          src="/brand/jagathswapna-logo.png"
+          alt="Sri Jagathswapna Realtors"
+          fill
+          sizes="64px"
+          className="object-contain"
+        />
       </span>
     </div>
   );

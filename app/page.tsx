@@ -7,11 +7,14 @@ import SectionRail from '@/components/SectionRail';
 import Reveal from '@/components/Reveal';
 import Parallax from '@/components/Parallax';
 import LocationCarousel from '@/components/LocationCarousel';
-import ConceptQuote from '@/components/ConceptQuote';
-import RouteMap from '@/components/RouteMap';
-import TypologyShowcase from '@/components/TypologyShowcase';
+import LocationSequence from '@/components/LocationSequence';
+import ProjectShowcase from '@/components/ProjectShowcase';
+import ProjectMap from '@/components/ProjectMap';
+import ProjectPortfolio from '@/components/ProjectPortfolio';
+import Stats from '@/components/Stats';
 import ContactForm from '@/components/ContactForm';
-import { reasons, amenities, smartFeatures } from '@/components/data';
+import WhatsAppButton from '@/components/WhatsAppButton';
+import { reasons, amenities, smartFeatures, contact } from '@/components/data';
 
 export default function Page() {
   return (
@@ -19,11 +22,12 @@ export default function Page() {
       <SectionRail />
       <Header />
       <Hero />
+      <Stats />
       <LifestyleShowcase />
       <ArcDivider />
 
-      {/* Reasons */}
-      <section data-rail-section data-rail-dark="false" className="bg-bg px-6 pb-24 sm:px-12 lg:px-24">
+      {/* Mission / Vision / Trust */}
+      <section data-rail-section data-rail-dark="false" className="bg-sky px-6 pb-24 pt-4 sm:px-12 lg:px-24">
         <div className="grid gap-10 md:grid-cols-3">
           {reasons.map((r, i) => (
             <Reveal key={r.title} delay={i * 0.08} className="group">
@@ -48,15 +52,16 @@ export default function Page() {
       {/* Full-bleed architecture parallax */}
       <section data-rail-section data-rail-dark="true" className="relative h-[70vh] min-h-[420px] overflow-hidden">
         <Parallax
-          src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=1600&q=80"
+          src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1600&q=80"
           ratio="h-full"
           className="h-full"
         />
       </section>
 
-      <ConceptQuote />
-      <RouteMap />
-      <TypologyShowcase />
+      <LocationSequence />
+      <ProjectShowcase />
+      <ProjectMap />
+      <ProjectPortfolio />
 
       {/* Amenities marquee */}
       <section data-rail-section data-rail-dark="false" className="overflow-hidden border-y border-line py-16">
@@ -71,7 +76,7 @@ export default function Page() {
         </div>
       </section>
 
-      {/* Smart home */}
+      {/* Smart features */}
       <section
         data-rail-section
         data-rail-dark="false"
@@ -84,8 +89,8 @@ export default function Page() {
           />
         </Reveal>
         <Reveal className="order-1 lg:order-2">
-          <span className="eyebrow">Smart home</span>
-          <h2 className="font-serif text-[clamp(2rem,5vw,3.6rem)]">Quiet technology</h2>
+          <span className="eyebrow">Built in</span>
+          <h2 className="font-serif text-[clamp(2rem,5vw,3.6rem)]">Modern, dependable homes</h2>
           <ul className="mt-6">
             {smartFeatures.map((f) => (
               <li key={f} className="border-b border-line py-4 text-muted">
@@ -96,22 +101,6 @@ export default function Page() {
         </Reveal>
       </section>
 
-      {/* Credits */}
-      <Reveal className="grid gap-8 border-t border-line px-6 py-20 sm:px-12 lg:grid-cols-2 lg:px-24">
-        <div>
-          <span className="eyebrow">Architecture</span>
-          <p className="font-serif text-[clamp(1.2rem,2.5vw,1.6rem)]">
-            Schiemann Weyers &amp; OCWA Architects
-          </p>
-        </div>
-        <div>
-          <span className="eyebrow">Developer</span>
-          <p className="font-serif text-[clamp(1.2rem,2.5vw,1.6rem)]">
-            Aurora Living S.L. · Completion 2027
-          </p>
-        </div>
-      </Reveal>
-
       {/* CTA */}
       <section
         id="contact"
@@ -121,26 +110,31 @@ export default function Page() {
       >
         <Reveal className="mx-auto max-w-2xl text-center">
           <h2 className="font-serif text-[clamp(2rem,5vw,3.6rem)]">
-            Book a private viewing
+            Book a site visit
           </h2>
           <ContactForm />
           <div className="flex flex-wrap justify-center gap-8 text-sm tracking-wide">
-            <a href="tel:+34000000000" className="text-white">
-              +34 000 000 000
+            <a href={`tel:+${contact.whatsapp}`} className="text-white">
+              {contact.phone}
             </a>
-            <span>Carretera de la Costa, km 12</span>
+            <a href={`mailto:${contact.email}`} className="text-white">
+              {contact.email}
+            </a>
+            <span>{contact.address}</span>
           </div>
         </Reveal>
       </section>
 
       <footer className="flex flex-wrap items-center justify-between gap-4 px-6 py-8 text-[0.78rem] text-muted sm:px-12 lg:px-24">
-        <span>© 2026 Aurora Residence</span>
+        <span>© {new Date().getFullYear()} {contact.companyLong}</span>
         <nav className="flex gap-6">
           <a href="#" className="text-muted hover:text-ink">Privacy</a>
           <a href="#" className="text-muted hover:text-ink">Terms</a>
           <a href="#" className="text-muted hover:text-ink">Instagram</a>
         </nav>
       </footer>
+
+      <WhatsAppButton />
     </main>
   );
 }
