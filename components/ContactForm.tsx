@@ -122,7 +122,7 @@ export default function ContactForm() {
             </button>
 
             <p className="text-center text-[0.72rem] leading-relaxed text-white/50">
-              By submitting, you agree to be contacted about Aurora Residence.
+              By submitting, you agree to be contacted by Sri Jagathswapna Realtors.
               We never share your details.
             </p>
           </motion.form>
