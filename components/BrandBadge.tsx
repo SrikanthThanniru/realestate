@@ -9,7 +9,7 @@ export default function BrandBadge({
   className?: string;
   dark?: boolean;
 }) {
-  const color = dark ? '#161310' : '#ffffff';
+  const color = dark ? '#071c1f' : '#ffffff';
   const text = 'SRI JAGATHSWAPNA REALTORS • EST. HYDERABAD • ';
 
   return (

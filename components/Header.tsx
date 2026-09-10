@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import BrandBadge from './BrandBadge';
+import Image from 'next/image';
 
 const links = [
   { label: 'Home', href: '#hero' },
@@ -36,7 +36,14 @@ export default function Header() {
         }`}
       >
         <a href="#hero" aria-label="Sri Jagathswapna Realtors — home">
-          <BrandBadge dark className="h-11 w-11 sm:h-14 sm:w-14" />
+          <Image
+            src="/brand/js-logo.png"
+            alt="Sri Jagathswapna Realtors"
+            width={220}
+            height={185}
+            priority
+            className="h-12 w-auto sm:h-16"
+          />
         </a>
 
         <div className="flex items-center gap-6 text-ink">

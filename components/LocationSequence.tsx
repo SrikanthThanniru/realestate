@@ -86,10 +86,10 @@ export default function LocationSequence() {
 
           <div className="w-full max-w-5xl overflow-x-auto">
             <svg viewBox="0 0 1080 140" className="mx-auto w-[820px] max-w-none sm:w-full" fill="none">
-              <path d={path} stroke="#161310" strokeWidth="1.5" />
+              <path d={path} stroke="#071c1f" strokeWidth="1.5" />
               {stops.map((s) => (
                 <g key={s.name}>
-                  <circle cx={s.x} cy={60} r="4" fill="#161310" />
+                  <circle cx={s.x} cy={60} r="4" fill="#071c1f" />
                   <text
                     x={s.x}
                     y={28}
@@ -97,11 +97,11 @@ export default function LocationSequence() {
                     fontSize="13"
                     fontWeight="600"
                     letterSpacing="0.5"
-                    fill="#161310"
+                    fill="#071c1f"
                   >
                     {s.name.toUpperCase()}
                   </text>
-                  <text x={s.x} y={44} textAnchor="middle" fontSize="11" fill="#726a5c">
+                  <text x={s.x} y={44} textAnchor="middle" fontSize="11" fill="#5c727d">
                     {s.time}
                   </text>
                 </g>

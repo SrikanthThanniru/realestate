@@ -1,19 +1,22 @@
 'use client';
 
 import { useRef } from 'react';
-import type { MouseEvent as ReactMouseEvent } from 'react';
-import Image from 'next/image';
+import type { CSSProperties, MouseEvent as ReactMouseEvent } from 'react';
 import { motion, useMotionValue, useScroll, useSpring, useTransform } from 'framer-motion';
 
-const BUILDING =
-  'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2000&q=80';
+const BUILDING = '/villas/villa-3.jpeg';
+const SLATS = 6;
+
+// Long, weighted ease — the "expo.out" feel from findrealestate.com's hero.
+const EXPO_OUT = [0.16, 1, 0.3, 1] as const;
 
 const lineUp = {
-  hidden: { opacity: 0, y: 26 },
+  hidden: { opacity: 0, y: 40, filter: 'blur(6px)' },
   show: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] as const, delay: 0.15 + i * 0.09 },
+    filter: 'blur(0px)',
+    transition: { duration: 1.1, ease: EXPO_OUT, delay: 1 + i * 0.1 },
   }),
 };
 
@@ -26,29 +29,26 @@ export default function Hero() {
     offset: ['start start', 'end end'],
   });
 
-  // Headline content fades and lifts away early, clearing the stage for the photo.
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.26], [1, 0]);
-  const contentY = useTransform(scrollYProgress, [0, 0.3], ['0%', '-8%']);
-  const contentScale = useTransform(scrollYProgress, [0, 0.3], [1, 0.96]);
+  const p = useSpring(scrollYProgress, { stiffness: 120, damping: 30, mass: 0.35 });
 
-  // The photo panel expands from a framed card into a full-bleed screen —
-  // it visibly "arrives" as the content clears out of its way.
-  const frameInset = useTransform(scrollYProgress, [0, 0.9], ['4%', '0%']);
-  const frameHeight = useTransform(scrollYProgress, [0, 0.9], ['42vh', '100vh']);
-  const frameRadius = useTransform(scrollYProgress, [0, 0.9], ['1.75rem', '0rem']);
-  const frameShadow = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const photoScale = useTransform(scrollYProgress, [0, 1], [1.08, 1]);
+  // Once assembled, the whole image slowly pushes in and drifts up as you scroll.
+  const imgScale = useTransform(p, [0, 1], [1, 1.18]);
+  const imgY = useTransform(p, [0, 1], ['0%', '-12%']);
+  const gradeOpacity = useTransform(p, [0.15, 0.7], [0.35, 0.9]);
 
-  // Clouds part outward, then dissolve before the photo fills the frame.
-  const cloudLeftX = useTransform(scrollYProgress, [0, 1], ['0%', '-70%']);
-  const cloudRightX = useTransform(scrollYProgress, [0, 1], ['0%', '70%']);
-  const cloudOpacity = useTransform(scrollYProgress, [0, 0.45, 0.6], [1, 1, 0]);
-  const smokeY = useTransform(scrollYProgress, [0, 1], ['70%', '0%']);
+  // Clouds part outward and thin out.
+  const cloudLeftX = useTransform(p, [0, 1], ['0%', '-24%']);
+  const cloudRightX = useTransform(p, [0, 1], ['0%', '24%']);
+  const cloudOpacity = useTransform(p, [0, 0.5, 0.85], [1, 0.85, 0]);
+  const smokeY = useTransform(p, [0, 0.92], ['70%', '0%']);
 
-  // Scroll cue fades the instant the user engages.
-  const cueOpacity = useTransform(scrollYProgress, [0, 0.06], [1, 0]);
+  // Headline sinks and fades as the image takes the frame.
+  const contentY = useTransform(p, [0, 0.4], ['0%', '16%']);
+  const contentScale = useTransform(p, [0, 0.4], [1, 0.93]);
+  const contentOpacity = useTransform(p, [0, 0.22], [1, 0]);
+  const cueOpacity = useTransform(scrollYProgress, [0, 0.05], [1, 0]);
 
-  // Magnetic pull on the primary CTA — it leans gently toward the cursor.
+  // Magnetic pull on the primary CTA.
   const magnetX = useMotionValue(0);
   const magnetY = useMotionValue(0);
   const springMagnetX = useSpring(magnetX, { stiffness: 200, damping: 15 });
@@ -72,93 +72,92 @@ export default function Hero() {
       id="hero"
       data-rail-section
       data-rail-dark="true"
-      className="relative h-[230vh]"
+      className="relative h-[320vh]"
     >
-      <div className="sticky top-0 h-screen overflow-hidden bg-gradient-to-b from-sky via-sky/70 to-bg">
-        {/* Ambient drifting cloud wisps against the plain sky gradient */}
-        <motion.div style={{ opacity: cloudOpacity }} className="pointer-events-none absolute inset-0 overflow-hidden">
-          <span className="absolute left-0 top-[10%] h-24 w-[30vw] animate-drift-slow rounded-full bg-white/40 blur-3xl" />
-          <span className="absolute left-0 top-[26%] h-20 w-[22vw] animate-drift-slower rounded-full bg-white/30 blur-2xl" />
-        </motion.div>
-
-        {/* Photo panel — starts as a framed card, expands edge-to-edge as you scroll */}
-        <motion.div
-          style={{
-            left: frameInset,
-            right: frameInset,
-            height: frameHeight,
-            borderRadius: frameRadius,
-            boxShadow: useTransform(frameShadow, (v) => `0 30px 60px -20px rgba(22,19,16,${0.35 * v})`),
-          }}
-          className="absolute bottom-0 z-[1] origin-bottom overflow-hidden"
-        >
-          <motion.div style={{ scale: photoScale }} className="absolute inset-0">
-            <Image
-              src={BUILDING}
-              alt="A Jagathswapna Realtors residence"
-              fill
-              priority
-              sizes="100vw"
-              className="object-cover"
-            />
+      <div className="sticky top-0 h-screen overflow-hidden bg-ink">
+        {/* Image stage — assembled on load from sliding slats, then pushes in on scroll */}
+        <motion.div style={{ scale: imgScale, y: imgY }} className="absolute inset-0 z-[1]">
+          <motion.div
+            initial={{ filter: 'blur(14px) brightness(0.7)', scale: 1.12 }}
+            animate={{ filter: 'blur(0px) brightness(1)', scale: 1 }}
+            transition={{ duration: 1.6, ease: EXPO_OUT, delay: 0.5 }}
+            className="absolute inset-0"
+          >
+            <div className="absolute inset-0 flex">
+              {Array.from({ length: SLATS }).map((_, i) => (
+                <div key={i} className="relative h-full flex-1 overflow-hidden">
+                  <motion.div
+                    initial={{ y: i % 2 === 0 ? '110%' : '-110%' }}
+                    animate={{ y: '0%' }}
+                    transition={{
+                      duration: 1.35,
+                      ease: EXPO_OUT,
+                      delay: 0.12 + i * 0.11,
+                    }}
+                    className="absolute inset-0 bg-cover bg-no-repeat"
+                    style={
+                      {
+                        backgroundImage: `url(${BUILDING})`,
+                        backgroundSize: `${SLATS * 100}% 100%`,
+                        backgroundPosition: `${(i / (SLATS - 1)) * 100}% 50%`,
+                      } as CSSProperties
+                    }
+                  />
+                  {/* hairline seam that flashes gold, then fades */}
+                  {i > 0 && (
+                    <motion.span
+                      initial={{ opacity: 0.9 }}
+                      animate={{ opacity: 0 }}
+                      transition={{ duration: 1.4, ease: 'easeOut', delay: 0.6 + i * 0.11 }}
+                      className="absolute inset-y-0 left-0 w-px bg-gold"
+                    />
+                  )}
+                </div>
+              ))}
+            </div>
           </motion.div>
-          <div className="absolute inset-0 bg-gradient-to-t from-ink/55 via-ink/5 to-transparent" />
+
+          <motion.div
+            style={{ opacity: gradeOpacity }}
+            className="absolute inset-0 bg-gradient-to-t from-ink via-ink/25 to-ink/10"
+          />
         </motion.div>
 
-        {/* Ambient clouds parting outward, dissolving before the photo fills the frame */}
-        <motion.span
+        {/* Clouds — rise in on load, part outward on scroll */}
+        <motion.div
           style={{ x: cloudLeftX, opacity: cloudOpacity }}
-          className="pointer-events-none absolute left-[-10%] top-[16%] z-[3] h-40 w-[46vw] rounded-full bg-white/70 blur-3xl"
+          initial={{ y: '60%', opacity: 0 }}
+          animate={{ y: '0%', opacity: 0.6 }}
+          transition={{ duration: 3, ease: EXPO_OUT, delay: 0.2 }}
+          className="pointer-events-none absolute left-[-16%] top-[12%] z-[2] h-52 w-[54vw] rounded-full bg-white/70 blur-3xl"
         />
-        <motion.span
+        <motion.div
           style={{ x: cloudRightX, opacity: cloudOpacity }}
-          className="pointer-events-none absolute right-[-8%] top-[8%] z-[3] h-32 w-[36vw] rounded-full bg-white/60 blur-3xl"
-        />
-        <motion.span
-          style={{ opacity: cloudOpacity }}
-          className="pointer-events-none absolute left-[8%] top-[36%] z-[3] h-20 w-[20vw] animate-drift-slower rounded-full bg-white/50 blur-2xl"
+          initial={{ y: '90%', opacity: 0 }}
+          animate={{ y: '0%', opacity: 0.5 }}
+          transition={{ duration: 4, ease: EXPO_OUT, delay: 0.35 }}
+          className="pointer-events-none absolute right-[-14%] top-[4%] z-[2] h-44 w-[44vw] rounded-full bg-white/60 blur-3xl"
         />
 
-        {/* Rising mist transitioning into the next section */}
+        {/* Rising mist into the next section */}
         <motion.div
           style={{ y: smokeY }}
-          className="pointer-events-none absolute inset-x-0 bottom-0 z-[4] h-[26vh] bg-gradient-to-t from-bg via-bg/70 to-transparent"
+          className="pointer-events-none absolute inset-x-0 bottom-0 z-[3] h-[20vh] bg-gradient-to-t from-bg to-transparent"
         />
 
-        {/* Headline content */}
+        {/* Headline */}
         <motion.div
           style={{ opacity: contentOpacity, y: contentY, scale: contentScale }}
-          className="relative z-[5] flex h-full w-full flex-col items-center px-6 pt-[10vh] text-center text-ink sm:px-12"
+          className="relative z-[5] mx-auto flex h-full max-w-5xl flex-col items-center justify-center px-6 text-center text-white sm:px-10"
         >
-          <motion.span
-            custom={0}
-            initial="hidden"
-            animate="show"
-            variants={lineUp}
-            className="mb-5 flex items-center gap-3 text-[0.7rem] uppercase tracking-[0.3em] text-gold"
-          >
-            <span className="h-px w-6 bg-gold/50" />
-            Luxury Residences · Hyderabad
-            <span className="h-px w-6 bg-gold/50" />
-          </motion.span>
-
-          <h1 className="font-display font-bold leading-[0.92] tracking-tight">
-            <span className="block overflow-hidden text-[clamp(2.3rem,7.5vw,5.2rem)]">
-              <motion.span custom={1} initial="hidden" animate="show" variants={lineUp} className="block">
-                Sri Jagathswapna&apos;s
-              </motion.span>
-            </span>
-            <span className="block overflow-hidden text-[clamp(2.3rem,7.5vw,5.2rem)]">
-              <motion.span
-                custom={2}
-                initial="hidden"
-                animate="show"
-                variants={lineUp}
-                className="block italic text-gold"
-              >
-                Realtors
-              </motion.span>
-            </span>
+          <h1 className="font-display font-extrabold leading-[0.95] tracking-[-0.02em] text-[clamp(2.6rem,8.5vw,7.5rem)] drop-shadow-[0_6px_30px_rgba(0,0,0,0.35)]">
+            {['Find', 'Where You', 'Belong'].map((word, i) => (
+              <span key={word} className="block overflow-hidden py-[0.05em]">
+                <motion.span custom={i} initial="hidden" animate="show" variants={lineUp} className="block">
+                  {word}
+                </motion.span>
+              </span>
+            ))}
           </h1>
 
           <motion.p
@@ -166,49 +165,33 @@ export default function Hero() {
             initial="hidden"
             animate="show"
             variants={lineUp}
-            className="mt-5 max-w-xl text-[clamp(0.95rem,1.8vw,1.2rem)] text-muted"
+            className="mt-7 max-w-xl text-[clamp(1rem,1.9vw,1.35rem)] font-medium leading-relaxed text-white/90"
           >
-            Building Dreams, Creating Legacies.{' '}
-            <span className="text-ink">A decade of real estate excellence in Hyderabad.</span>
+            Gated-community villas and plots across Hyderabad — a decade of delivery.{' '}
+            <span className="text-white/60">Built on trust.</span>
           </motion.p>
 
-          <motion.div
-            custom={4}
-            initial="hidden"
-            animate="show"
-            variants={lineUp}
-            className="mt-8 flex flex-wrap items-center justify-center gap-x-7 gap-y-4"
-          >
+          <motion.div custom={4} initial="hidden" animate="show" variants={lineUp} className="mt-9">
             <motion.a
               ref={ctaRef}
               href="#projects"
               onMouseMove={handleCtaMove}
               onMouseLeave={handleCtaLeave}
               style={{ x: springMagnetX, y: springMagnetY }}
-              className="group inline-flex items-center gap-2 rounded-full bg-ink px-8 py-3.5 text-sm font-medium text-white shadow-[0_14px_30px_-12px_rgba(22,19,16,0.5)] transition-shadow duration-500 ease-smooth hover:shadow-[0_18px_36px_-10px_rgba(22,19,16,0.55)]"
+              className="group inline-flex items-center gap-2 rounded-full bg-white px-9 py-4 text-sm font-semibold text-ink shadow-[0_16px_40px_-12px_rgba(0,0,0,0.5)] transition-shadow duration-500 ease-smooth hover:shadow-[0_20px_48px_-10px_rgba(0,0,0,0.55)]"
             >
               View Our Projects
               <span aria-hidden className="transition-transform duration-300 ease-smooth group-hover:translate-x-1">
                 →
               </span>
             </motion.a>
-
-            <a
-              href="tel:+919885447747"
-              className="flex items-center gap-2 text-[0.72rem] uppercase tracking-[0.18em] text-muted transition-colors hover:text-ink"
-            >
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
-              </svg>
-              +91 98854 47747
-            </a>
           </motion.div>
         </motion.div>
 
         {/* Scroll cue */}
         <motion.div
           style={{ opacity: cueOpacity }}
-          className="pointer-events-none absolute inset-x-0 bottom-6 z-[5] flex flex-col items-center gap-2 text-ink/50"
+          className="pointer-events-none absolute inset-x-0 bottom-6 z-[5] flex flex-col items-center gap-2 text-white/60"
         >
           <span className="text-[0.62rem] uppercase tracking-[0.3em]">Scroll</span>
           <span className="h-8 w-px origin-top animate-scrollLine bg-current" />

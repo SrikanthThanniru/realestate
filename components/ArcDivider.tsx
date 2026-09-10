@@ -75,7 +75,7 @@ export default function ArcDivider() {
           >
             <path id="arc-headline" d="M 40,250 A 1500,1500 0 0 1 1160,250" fill="none" />
             <text
-              fill="#161310"
+              fill="#071c1f"
               fontSize="46"
               letterSpacing="3"
               style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontWeight: 600 }}

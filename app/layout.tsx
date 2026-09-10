@@ -1,23 +1,17 @@
 import type { Metadata } from 'next';
-import { Cormorant_Garamond, Playfair_Display, Pinyon_Script, Inter } from 'next/font/google';
+import { Poppins, Nunito_Sans, Pinyon_Script } from 'next/font/google';
 import './globals.css';
 
-const inter = Inter({
+const inter = Nunito_Sans({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600'],
+  weight: ['300', '400', '600', '700'],
   variable: '--font-inter',
 });
 
-const cormorant = Cormorant_Garamond({
+const poppins = Poppins({
   subsets: ['latin'],
-  weight: ['400', '500', '600'],
+  weight: ['400', '500', '600', '700', '800'],
   variable: '--font-cormorant',
-});
-
-const playfair = Playfair_Display({
-  subsets: ['latin'],
-  weight: ['500', '600', '700', '800'],
-  variable: '--font-playfair',
 });
 
 const script = Pinyon_Script({
@@ -40,7 +34,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${cormorant.variable} ${playfair.variable} ${script.variable}`}
+      className={`${inter.variable} ${poppins.variable} ${script.variable}`}
     >
       <body className="font-sans antialiased">{children}</body>
     </html>

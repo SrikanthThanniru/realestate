@@ -1,17 +1,17 @@
 // Pillars — real Mission / Vision / Trust copy from jagathswapnahyd.com
 export const reasons = [
   {
-    img: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1000&q=80',
+    img: '/villas/villa-2.jpeg',
     title: 'Mission',
     body: 'To offer the best gated-community villas in Hyderabad, ensuring luxurious, secure and serene living spaces, while providing the best plots for sale to help clients build their dream homes with confidence.',
   },
   {
-    img: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1000&q=80',
+    img: '/villas/villa-1.jpeg',
     title: 'Vision',
     body: 'To be the leading real estate company in Hyderabad, recognized for exceptional gated-community villas and premium plots, setting new standards in quality, innovation and customer satisfaction.',
   },
   {
-    img: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1000&q=80',
+    img: '/villas/villa-5.jpeg',
     title: 'Trust',
     body: 'Committed to delivering with transparency, integrity and a customer-first approach — ensuring lasting trust and satisfaction across every project we undertake.',
   },
@@ -56,7 +56,7 @@ export const featuredProjects = [
     location: 'Bacharam',
     price: '₹7,099/sft',
     blurb: 'Our flagship on-going gated community, rising in Bacharam with contemporary villa design and full-scale amenities.',
-    img: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=80',
+    img: '/villas/villa-4.jpeg',
   },
   {
     name: 'Sparkle Heaven',
@@ -64,7 +64,7 @@ export const featuredProjects = [
     location: 'Aushapur',
     price: 'Launching soon',
     blurb: '"Step into the safe heaven of your own" — our next launch in Aushapur, offering secure, modern villa living.',
-    img: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=80',
+    img: '/villas/villa-2.jpeg',
   },
   {
     name: 'Spalena',
@@ -72,7 +72,7 @@ export const featuredProjects = [
     location: 'Bandaraviryal',
     price: '₹22,000/sft',
     blurb: 'A completed, fully occupied community in Bandaraviryal — proof of a decade of delivery and trust.',
-    img: 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1200&q=80',
+    img: '/villas/villa-1.jpeg',
   },
 ];
 

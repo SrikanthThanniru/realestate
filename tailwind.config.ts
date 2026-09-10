@@ -8,18 +8,18 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        bg: '#f6f2e8',
-        ink: '#161310',
-        muted: '#726a5c',
-        line: '#ded4bf',
-        accent: '#2a1e12',
-        sky: '#ede4cf',
-        bloom: '#8a3b2e',
-        gold: '#c19a4b',
+        bg: '#ffffff',
+        ink: '#071c1f',
+        muted: '#5c727d',
+        line: '#e5e5e6',
+        accent: '#133236',
+        sky: '#f2f6f7',
+        bloom: '#e31e24',
+        gold: '#cb3421',
       },
       fontFamily: {
-        serif: ['var(--font-cormorant)', 'Georgia', 'serif'],
-        display: ['var(--font-playfair)', 'Georgia', 'serif'],
+        serif: ['var(--font-cormorant)', 'system-ui', 'sans-serif'],
+        display: ['var(--font-playfair)', 'system-ui', 'sans-serif'],
         script: ['var(--font-script)', 'cursive'],
         sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
       },
