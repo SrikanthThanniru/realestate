@@ -4,9 +4,9 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 
 const hotspots = [
-  { top: '30%', left: '27%', label: 'Pergola terrace', side: 'right' as const },
-  { top: '48%', left: '55%', label: 'Saltwater pool', side: 'right' as const },
-  { top: '58%', left: '80%', label: 'Poolside service', side: 'left' as const },
+  { top: '26%', left: '30%', label: 'Timber-slat screen', side: 'right' as const },
+  { top: '50%', left: '62%', label: 'Glass-rail balcony', side: 'left' as const },
+  { top: '74%', left: '20%', label: 'Landscaped entry', side: 'right' as const },
 ];
 
 export default function LifestyleShowcase() {
@@ -17,8 +17,8 @@ export default function LifestyleShowcase() {
       className="relative h-screen min-h-[600px] overflow-hidden"
     >
       <Image
-        src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=2000&q=80"
-        alt="Poolside lifestyle amenities"
+        src="/villas/villa-1.jpeg"
+        alt="A Jagathswapna Realtors villa"
         fill
         className="object-cover"
       />

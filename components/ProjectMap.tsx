@@ -42,8 +42,8 @@ export default function ProjectMap() {
             <div style="
               display:flex;align-items:center;justify-content:center;
               width:34px;height:34px;border-radius:9999px;
-              background:#161310;border:2px solid #c19a4b;
-              color:#f6f2e8;font-family:var(--font-cormorant,Georgia,serif);
+              background:#071c1f;border:2px solid #cb3421;
+              color:#ffffff;font-family:var(--font-cormorant,Georgia,serif);
               font-weight:700;font-size:15px;
               box-shadow:0 6px 16px -4px rgba(0,0,0,.45);
             ">${i + 1}</div>`,
@@ -56,16 +56,16 @@ export default function ProjectMap() {
         const chips = loc.projectNames
           .map(
             (n) =>
-              `<span style="display:inline-block;margin:2px 4px 0 0;padding:2px 8px;border:1px solid #ded4bf;border-radius:9999px;font-size:11px;color:#726a5c;">${n}</span>`
+              `<span style="display:inline-block;margin:2px 4px 0 0;padding:2px 8px;border:1px solid #e5e5e6;border-radius:9999px;font-size:11px;color:#5c727d;">${n}</span>`
           )
           .join('');
 
         marker.bindPopup(
           `<div style="font-family:var(--font-inter,sans-serif);min-width:180px">
-            <p style="margin:0 0 4px;font-family:var(--font-cormorant,Georgia,serif);font-size:18px;color:#161310;">${loc.name}</p>
+            <p style="margin:0 0 4px;font-family:var(--font-cormorant,Georgia,serif);font-size:18px;color:#071c1f;">${loc.name}</p>
             <div style="margin-bottom:8px">${chips}</div>
             <a href="${loc.mapsUrl}" target="_blank" rel="noopener noreferrer"
-              style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#161310;text-decoration:underline;">
+              style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#071c1f;text-decoration:underline;">
               Get directions →
             </a>
           </div>`,
