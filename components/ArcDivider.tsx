@@ -60,8 +60,14 @@ export default function ArcDivider() {
     >
       <div className="sticky top-0 flex h-screen items-center justify-center overflow-hidden">
         <motion.div
-          style={{ scale, y: discY }}
-          className="absolute aspect-square w-[130vmax] rounded-full bg-sky"
+          style={{
+            scale,
+            y: discY,
+            background:
+              'radial-gradient(circle at 50% 38%, #fdf6e9 0%, #f6e6c4 45%, #eecf94 72%, #e2b563 100%)',
+            boxShadow: '0 0 180px 70px rgba(203,52,33,0.10)',
+          }}
+          className="absolute aspect-square w-[130vmax] rounded-full ring-1 ring-gold/25"
         />
 
         <motion.div
