@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Preloader from '@/components/Preloader';
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
 import LifestyleShowcase from '@/components/LifestyleShowcase';
@@ -19,6 +20,7 @@ import { reasons, amenities, smartFeatures, contact } from '@/components/data';
 export default function Page() {
   return (
     <main>
+      <Preloader />
       <SectionRail />
       <Header />
       <Hero />
