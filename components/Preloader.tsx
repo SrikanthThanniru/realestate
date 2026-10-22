@@ -1,84 +1,56 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import Image from 'next/image';
-
-const EASE: [number, number, number, number] = [0.83, 0, 0.17, 1];
+import { AnimatePresence, motion } from 'framer-motion';
 
 export default function Preloader() {
-  const [visible, setVisible] = useState(true);
-  const [reduced, setReduced] = useState(false);
+  const [n, setN] = useState(0);
+  const [done, setDone] = useState(false);
 
   useEffect(() => {
-    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setReduced(mq.matches);
-
     document.body.style.overflow = 'hidden';
-    const total = mq.matches ? 0 : 2400;
-    const t = setTimeout(() => {
-      setVisible(false);
-      document.body.style.overflow = '';
-    }, total);
-
+    const start = performance.now();
+    const dur = 1700;
+    let raf: number;
+    const tick = (now: number) => {
+      const t = Math.min(1, (now - start) / dur);
+      setN(Math.round((1 - Math.pow(1 - t, 3)) * 100));
+      if (t < 1) raf = requestAnimationFrame(tick);
+      else
+        setTimeout(() => {
+          setDone(true);
+          document.body.style.overflow = '';
+        }, 250);
+    };
+    raf = requestAnimationFrame(tick);
     return () => {
-      clearTimeout(t);
+      cancelAnimationFrame(raf);
       document.body.style.overflow = '';
     };
   }, []);
 
   return (
     <AnimatePresence>
-      {visible && (
+      {!done && (
         <motion.div
-          className="fixed inset-0 z-[200] overflow-hidden"
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          exit={{ y: '-100%' }}
+          transition={{ duration: 0.9, ease: [0.76, 0, 0.24, 1] }}
+          className="fixed inset-0 z-[300] flex flex-col justify-between bg-ink p-6 text-ivory sm:p-10"
         >
-          <svg
-            className="absolute inset-0 h-full w-full"
-            viewBox="0 0 1440 900"
-            preserveAspectRatio="xMidYMax slice"
-          >
-            <defs>
-              <mask id="archReveal" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse">
-                <rect x="0" y="0" width="1440" height="900" fill="white" />
-                <motion.path
-                  d="M540 900 L540 650 A180 180 0 0 1 900 650 L900 900 Z"
-                  fill="black"
-                  style={{ originX: 0.5, originY: 1 }}
-                  initial={{ scale: reduced ? 40 : 0.12 }}
-                  animate={{ scale: 40 }}
-                  transition={{
-                    duration: reduced ? 0 : 1.7,
-                    ease: EASE,
-                    delay: reduced ? 0 : 0.5,
-                  }}
-                />
-              </mask>
-            </defs>
-            <rect x="0" y="0" width="1440" height="900" fill="#133236" mask="url(#archReveal)" />
-          </svg>
-
-          <motion.div
-            className="pointer-events-none absolute inset-0 flex items-center justify-center"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: reduced ? 0 : [0, 1, 1, 0] }}
-            transition={{
-              duration: reduced ? 0 : 1.9,
-              times: [0, 0.28, 0.55, 1],
-              ease: 'easeInOut',
-            }}
-          >
-            <Image
-              src="/brand/js-logo.png"
-              alt=""
-              width={214}
-              height={180}
-              className="w-[140px] sm:w-[180px]"
-              priority
-            />
-          </motion.div>
+          <p className="text-[0.7rem] uppercase tracking-[0.3em] text-brass">Sri Jagathswapna Realtors</p>
+          <div>
+            <p className="font-display text-[clamp(2rem,6vw,4.5rem)] leading-none">
+              Building Dreams,
+              <br />
+              <span className="italic text-brass">Creating Legacies.</span>
+            </p>
+          </div>
+          <div className="flex items-end justify-between">
+            <div className="h-px flex-1 bg-white/15">
+              <div className="h-px bg-brass transition-[width] duration-100" style={{ width: `${n}%` }} />
+            </div>
+            <span className="ml-6 font-display text-6xl tabular-nums leading-none sm:text-8xl">{n}</span>
+          </div>
         </motion.div>
       )}
     </AnimatePresence>

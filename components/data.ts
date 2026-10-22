@@ -1,17 +1,17 @@
 // Pillars — real Mission / Vision / Trust copy from jagathswapnahyd.com
 export const reasons = [
   {
-    img: '/villas/villa-2.jpeg',
+    img: '/villas/villa-2.png',
     title: 'Mission',
     body: 'To offer the best gated-community villas in Hyderabad, ensuring luxurious, secure and serene living spaces, while providing the best plots for sale to help clients build their dream homes with confidence.',
   },
   {
-    img: '/villas/villa-1.jpeg',
+    img: '/villas/villa-1.png',
     title: 'Vision',
     body: 'To be the leading real estate company in Hyderabad, recognized for exceptional gated-community villas and premium plots, setting new standards in quality, innovation and customer satisfaction.',
   },
   {
-    img: '/villas/villa-5.jpeg',
+    img: '/villas/villa-5.png',
     title: 'Trust',
     body: 'Committed to delivering with transparency, integrity and a customer-first approach — ensuring lasting trust and satisfaction across every project we undertake.',
   },
@@ -56,7 +56,7 @@ export const featuredProjects = [
     location: 'Bacharam',
     price: '₹7,099/sft',
     blurb: 'Our flagship on-going gated community, rising in Bacharam with contemporary villa design and full-scale amenities.',
-    img: '/villas/villa-4.jpeg',
+    img: '/villas/villa-4.png',
   },
   {
     name: 'Sparkle Heaven',
@@ -64,7 +64,7 @@ export const featuredProjects = [
     location: 'Aushapur',
     price: 'Launching soon',
     blurb: '"Step into the safe heaven of your own" — our next launch in Aushapur, offering secure, modern villa living.',
-    img: '/villas/villa-2.jpeg',
+    img: '/villas/villa-2.png',
   },
   {
     name: 'Spalena',
@@ -72,7 +72,7 @@ export const featuredProjects = [
     location: 'Bandaraviryal',
     price: '₹22,000/sft',
     blurb: 'A completed, fully occupied community in Bandaraviryal — proof of a decade of delivery and trust.',
-    img: '/villas/villa-1.jpeg',
+    img: '/villas/villa-1.png',
   },
 ];
 
@@ -149,3 +149,24 @@ export const contact = {
   whatsapp: '919885447747',
   email: 'info@jagathswapnahyd.com',
 };
+
+// ---- v2 additions -------------------------------------------------------
+export const projectImages: Record<string, string> = {
+  Spanesta: '/villas/villa-4.png',
+  'Spalena WavOn': '/villas/villa-3.png',
+  'Sparkle Heaven': '/villas/villa-2.png',
+  'Sparrows Vipasa': '/villas/villa-5.png',
+  Spalena: '/villas/villa-1.png',
+  'Sparrows Flivora': '/villas/villa-3.png',
+  Spanzilla: '/villas/villa-2.png',
+  'Sparkle Inara': '/villas/villa-5.png',
+  'Sparkle Castle': '/villas/villa-4.png',
+};
+
+export const navLinks = [
+  { label: 'Projects', href: '#projects' },
+  { label: 'Portfolio', href: '#portfolio' },
+  { label: 'Footprint', href: '#footprint' },
+  { label: 'Growth', href: '#growth' },
+  { label: 'About', href: '#about' },
+];

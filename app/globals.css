@@ -2,23 +2,54 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --font-playfair: var(--font-cormorant);
-}
-
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 4.5rem;
 }
 
 body {
-  background: theme('colors.bg');
+  background: theme('colors.paper');
   color: theme('colors.ink');
-  font-weight: 400;
-  overflow-x: hidden;
+  overflow-x: clip;
+}
+
+::selection {
+  background: theme('colors.brass');
+  color: theme('colors.ink');
 }
 
 .eyebrow {
-  @apply block text-[0.72rem] tracking-[0.22em] uppercase text-muted font-medium mb-4;
+  @apply flex items-center gap-3 text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-brassdeep;
+}
+.eyebrow::before {
+  content: '';
+  width: 2rem;
+  height: 1px;
+  background: currentColor;
+}
+.eyebrow-light {
+  @apply text-brass;
+}
+
+.outline-text {
+  -webkit-text-stroke: 1px rgba(244, 239, 230, 0.55);
+  color: transparent;
+}
+
+.grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  scrollbar-width: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -26,6 +57,24 @@ body {
   *::before,
   *::after {
     animation-duration: 0.001s !important;
+    animation-iteration-count: 1 !important;
     transition-duration: 0.001s !important;
   }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+.shimmer {
+  background: linear-gradient(100deg, #b8873f 20%, #fff0cc 45%, #d4a259 55%, #b8873f 80%);
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 5s linear infinite;
+  padding-right: 0.08em;
+}
+@keyframes shimmer {
+  from { background-position: 150% 0; }
+  to { background-position: -100% 0; }
 }

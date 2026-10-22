@@ -1,41 +1,27 @@
 import type { Metadata } from 'next';
-import { Poppins, Nunito_Sans, Pinyon_Script } from 'next/font/google';
+import { Fraunces, Manrope } from 'next/font/google';
 import './globals.css';
 
-const inter = Nunito_Sans({
+const display = Fraunces({
   subsets: ['latin'],
-  weight: ['300', '400', '600', '700'],
-  variable: '--font-inter',
+  variable: '--font-display',
+  axes: ['opsz'],
 });
 
-const poppins = Poppins({
+const sans = Manrope({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700', '800'],
-  variable: '--font-cormorant',
-});
-
-const script = Pinyon_Script({
-  subsets: ['latin'],
-  weight: '400',
-  variable: '--font-script',
+  variable: '--font-sans',
 });
 
 export const metadata: Metadata = {
-  title: "Sri Jagathswapna Realtors — Building Dreams, Creating Legacies",
+  title: 'Sri Jagathswapna Realtors — Building Dreams, Creating Legacies',
   description:
     'A decade of real estate excellence in Hyderabad — premium gated-community villas and open plots from Sri Jagathswapna Realtors Pvt. Ltd.',
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html
-      lang="en"
-      className={`${inter.variable} ${poppins.variable} ${script.variable}`}
-    >
+    <html lang="en" className={`${display.variable} ${sans.variable}`}>
       <body className="font-sans antialiased">{children}</body>
     </html>
   );
