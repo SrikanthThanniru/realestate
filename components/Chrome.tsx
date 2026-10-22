@@ -17,13 +17,26 @@ export default function Chrome() {
     if (!window.matchMedia('(pointer: fine)').matches) return;
     setFine(true);
     let x = 0, y = 0, rx = 0, ry = 0, raf = 0;
+
+    const evaluate = (target: Element | null) => {
+      const el = target as HTMLElement | null;
+      setBig(!!el?.closest('a,button,[data-cursor]'));
+      setLabel(el?.closest('[data-label]')?.getAttribute('data-label') ?? '');
+    };
+
     const move = (e: MouseEvent) => {
       x = e.clientX;
       y = e.clientY;
-      const t = e.target as HTMLElement;
-      setBig(!!t.closest('a,button,[data-cursor]'));
-      setLabel(t.closest('[data-label]')?.getAttribute('data-label') ?? '');
+      evaluate(e.target as Element);
     };
+
+    // Re-check on scroll — the element under the cursor changes as the page scrolls
+    // even though the mouse hasn't physically moved.
+    const onScroll = () => {
+      const el = document.elementFromPoint(x, y);
+      evaluate(el);
+    };
+
     const loop = () => {
       rx += (x - rx) * 0.18;
       ry += (y - ry) * 0.18;
@@ -31,9 +44,11 @@ export default function Chrome() {
       raf = requestAnimationFrame(loop);
     };
     window.addEventListener('mousemove', move);
+    window.addEventListener('scroll', onScroll, { passive: true });
     raf = requestAnimationFrame(loop);
     return () => {
       window.removeEventListener('mousemove', move);
+      window.removeEventListener('scroll', onScroll);
       cancelAnimationFrame(raf);
     };
   }, []);
